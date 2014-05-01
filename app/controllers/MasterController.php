@@ -135,22 +135,12 @@ class MasterController extends BaseController{
 			));
 			
 		}else{
-
+			App::error('404');
 		}
 	
 	}
 
-	public function getPrueba(){
-		$objetivos=Objetivo::where('id_reserva',Session::get('lastIdReserva'))->get();
-		 return View::make('master.objetivos',compact('objetivos'));
-
-	}
-
-	public function getRespuesta()
-	{
-		return Session::get('lastIdReserva');
-	}
-
+	
 	
 
 }

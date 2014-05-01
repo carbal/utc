@@ -9,8 +9,8 @@
 <tr id="{{$objetivo->id}}">
 	<td style="max-width:150px; overflow:hidden;">{{$objetivo->objetivo}}</td>
 	<td style="max-width:220px; overflow:hidden;">{{$objetivo->descripcion}}</td>
-	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" onclick="editar({{$objetivo->id}})"></span></td>
-	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-remove" id="{{$objetivo->id}}" onclick="eliminar({{$objetivo->id}})"></span></td>	
+	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" onclick="modalUpdate({{$objetivo->id}})"></span></td>
+	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-remove" onclick="deleteObjetivo({{$objetivo->id}})"></span></td>	
 </tr>						
 @endforeach
 <tr>
@@ -19,4 +19,4 @@
 	</td>								
 </tr>			
 </table>
-<h1>Carlos roberto Balam</h1>
+

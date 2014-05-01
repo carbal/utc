@@ -106,7 +106,7 @@
 			</tr>				
 			<tr>
 				<td colspan="4">
-					<a href="#modalObjetivos" class="btn btn-sm btn-primary pull-right" onclick="$('#modalObjetivos').modal('show');">+Objetivo</a>
+					<a class="btn btn-sm btn-primary pull-right" onclick="$('div#modalObjetivos').modal('show');">+Objetivo</a>
 				</td>								
 			</tr>
 		</table>
@@ -142,14 +142,16 @@
     	</div>
   </div>
   <div class="modal-footer">
-    <input type="button" id="addObjetivo" class="btn btn-md btn-primary" value="Guardar"/>  
+    <input type="button"  class="btn btn-md btn-primary" value="Guardar" onclick="insertObjetivo()" id="insertObj"/>
+    <input type="button" class="btn btn-md btn-primary" value="Actualizar" style="display:none;" id="updateObj" onclick="updateObjetivo()"/>  
     </form>
   </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
+<!--SECCION DE INPUT HIIDDEN-->
+<input type="hidden" id="idUpdate" value="">
 
 
 
@@ -353,6 +355,7 @@
 					$('#sectionObj').slideDown('slow');
 					//bloquemos los botones para evitar nuevas inserciones
 					$('#enviar,#reiniciar').prop('disabled',true);
+					$('input:checkbox').prop('disabled',true);
 				}else{
 					$('article#modal-msj').dialog({
 						modal:true,
@@ -389,12 +392,38 @@
 		$('input:checkbox').prop('checked',false);
 		horario=[];
 	});
-	//insertar objetivo
 
-	$('input#addObjetivo').on('click',function(){
 
-		$.ajax({
-			url: "{{URL::to('profesor/objetivo')}}",
+	
+//evento para actualiaar objetivo
+$('#editarObj').on('click', function() {
+	$.ajax({
+		url: "{{URL::to('objetivo/update')}}",
+		type: 'POST',
+		dataType: 'json',
+		data:$('form#objetivos').serialize()
+	})
+	.done(function() {
+		if(data.success){
+			alert('La actulizacion a finalizado con éxito')
+		}else{
+			alert('Error al actualizar');
+		}
+	})
+	.fail(function(data) {
+		console.log(data);
+	});
+	
+});//termina evento click
+
+
+});//termina jquery
+
+//funcion parar guardar el objetivo
+function insertObjetivo(){
+
+	$.ajax({
+			url: "{{URL::to('objetivo/insert')}}",
 			type: 'POST',
 			dataType: 'json',
 			data:$('form#objetivos').serialize()
@@ -413,17 +442,10 @@
 		.fail(function(json) {
 			console.log('FATAL ERROR: CONTROLLER:MASTERCONTROLLER ACTION:OBJETIVO');
 		});
-		
-	});//termina evento click
-
-
-});//termina jquery
-
-
+}
 //funcion para eliminar objetivo
-function eliminar(obj){
+function deleteObjetivo(obj){
 	if(confirm('Desea eliminar este objetivo?')){
-	console.log(obj)	
 		$.ajax({
 			url: "{{URL::to('objetivo/delete')}}",
 			type: 'POST',
@@ -432,14 +454,50 @@ function eliminar(obj){
 		})
 		.done(function(json) {
 			if(json.success){
-				$('tr#'+obj).slideUp('slow');							
+				$('tr[id='+obj+']').slideUp('slow');							
 			}
 		})
 		.fail(function() {
 			console.log("FATAL ERROR: CONTROLLER:OBJETIVO ,ACTION:ELIMINAR");
 		});		
 	}
-}	
+}
 
+//funcion mostrar el modal objetivo
+function modalUpdate(obj){
+var datos = $('tr#'+obj).find('td');
+//asigmanos los datos
+$('input#objetivo').prop('value',datos.eq(0).html());
+$('textarea#descripcion').html(datos.eq(1).html());
+//agregamos el valor al input hidden necesario para hacer update
+$('body #idUpdate').prop('value',obj);
+//mostramos  el modal y boton update
+$('div#modalObjetivos').modal('show');
+$('#modalObjetivos input#updateObj').show();
+$('#modalObjetivos input#insertObj').hide();
+}
+
+//funcion para actualizar objetivo
+function updateObjetivo(){
+
+	$.ajax({
+		url: "{{URL::to('objetivo/update')}}",
+		type: 'POST',
+		dataType: 'json',
+		data:$('form#objetivos').serialize()+'&id='+$('input#idUpdate').prop('value')
+	})
+	.done(function(json) {
+		if(json.success){
+			$('#modalObjetivos').modal('hide');
+			$('form#objetivos').each(function() {
+				this.reset();
+			});
+		}
+	})
+	.fail(function(json) {
+		console.log(json);
+	});
+	
+}
 </script>
 @stop
