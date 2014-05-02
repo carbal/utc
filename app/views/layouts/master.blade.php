@@ -53,13 +53,12 @@
 	            <li><a href="#">Historial</a></li>
 	            <li class="divider"></li>
 	            <li><a href="#">Mis Grupos</a></li>	 
-	            <li><a href="{{URL::to('profesor/reservas')}}">Mis reservas</a></li>           
+	            <li><a href="{{URL::to('profesor/misreservas')}}">Mis reservas</a></li>           
 	          </ul>
        		</li>
        		<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bandeja<b class="caret"></b></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#"></a></li>
+	          <ul class="dropdown-menu">	            
 	            <li><a href="#">Peticiones</a></li>	            
 	          </ul>
        		</li>

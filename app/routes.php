@@ -36,7 +36,8 @@ Route::group(array('before'=>'admon'), function()
 //aplicamos filtros correspondientes
 Route::group(array('before'=>'maestro'),function(){
 	Route::controller('profesor','MasterController');
-	Route::controller('objetivo','ObjetivoController');	
+	Route::controller('objetivo','ObjetivoController');
+	Route::controller('reserva','ReservaController');
 });
 
 //

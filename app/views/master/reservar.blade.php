@@ -220,7 +220,7 @@
 
 	      	if(_taller != '' && _fecha !=''){
 	      		$.ajax({
-  		      		url: "{{URL::to('profesor/reservafecha')}}",
+  		      		url: "{{URL::to('reserva/getfecha')}}",
   		      		type: 'POST',
   		      		dataType:'json',
   		      		data:{
@@ -326,7 +326,7 @@
 		//console.log("carrera :"+_carrera +" asig: "+_asig+" fecha: "+_fecha+" taller: "+ typeof(_taller));
 		if(_taller!='' && _fecha!='' && _carrera!='' && _asig!='' && _horario.length>0){
 			$.ajax({
-				url: "{{URL::to('profesor/insertreserva')}}",
+				url: "{{URL::to('reserva/insert')}}",
 				type: 'POST',
 				dataType:'json',
 				data:{
