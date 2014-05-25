@@ -12,12 +12,12 @@ class ReservaController extends BaseController{
 			//obtenemos el periodo actual
 			$periodo=Periodo::all()->last();
 			//obtenemos los datos faltantes para insertar en la DB
-			$data=[
+			$data=array(
 			'id_profesor'=>Session::get('clave'),
 			'id_periodo'=>$periodo->id,
 			'estado'=>0,
 			'hora'=>date('H:i:s')
-			];
+			);
 			//eliminamos el valor json enviado
 			unset($dataAjax['jsonhoras']);
 			$insert=array_merge($data,$dataAjax);
