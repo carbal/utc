@@ -19,12 +19,13 @@
 	<div class="jumbotron" id="jumbotron">
 		 <div class="jumbotron text-center col-sm-10 col-md-10 col-lg-10 col-md-offset-1" id="jumbotron">
  	
- 	<h1>Sistema de Reservaciones &nbsp<small>Universidad Tecnológica del Centro</small></h1> 
- 	{{date("d/m/Y")}}	
+ 	<h1>Bitácora de Acceso a Laboratorios y Talleres </h1> 
+ 	<h2>Universidad Tecnológica del Centro</h2>
+ 	<p>{{date("d/m/Y")}}</p>	
  	<br>	
  	<br>
  	<br>
- 	<a href="#" class="btn btn-success btn-lg">Bienvenido</a>
+ 	<a href="#" class="btn btn-success btn-lg">IT-UTC-RHU-08</a>
  	
  </div>
 	</div>

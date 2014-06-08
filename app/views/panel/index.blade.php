@@ -20,7 +20,7 @@
  	<div class="alert alert-danger" style="display:none">
  		<h4>Errores</h4>
  	</div>
- 	<h1>Sistema de Reservaciones &nbsp<small>Universidad Tecnológico del Centro</small></h1> 
+ 	<h1>Bitácora de Acceso a Laboratorios y Talleres &nbsp<small>Universidad Tecnológico del Centro</small></h1> 
  	{{date("d/m/Y")}}
  	<br>	
  	<br>
