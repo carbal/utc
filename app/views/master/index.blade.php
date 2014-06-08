@@ -14,7 +14,7 @@
 	
 	
 	<div class="alert alert-success">
-		<p><strong>Bienvenido profesor: </strong><span class="label label-success">{{Session::get('usuario')}}</span></p>
+		<h1>Bienvenido :{{Session::get('usuario')}}</h1>
 		<p><strong>Fecha :  </strong>{{date('d-m-Y')}}</p>		
 	</div>
 	<div class="alert alert-info">

@@ -11,7 +11,6 @@ class InvitadoController extends BaseController{
 	
 	public function getBitacora()
 	{
-
 		$talleres = Taller::all();
 		$horarios = Horario::all();
 		return $this->layout = View::make('invitado.bitacora',compact('talleres','horarios'));

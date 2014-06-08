@@ -22,14 +22,17 @@
 
 @section('contenedor')
 <div class="row">
-<div class="col-md-10 col-md-offset-1 alert alert-info" id="info">
+<div class="col-md-10 col-md-offset-1 alert alert-info" id="info" style="display:none;">
 	<div style="overflow:hidden;">		
 		<span class="glyphicon glyphicon-info-sign" style="float:left; margin-right:.5em;"></span> <p>Si desea modificar los horarios comuniquese con el administrador</p>
 	</div>
-</div>	
+</div>
+<div class="alert alert-success col-md-offset-1 col-md-10" style="display:none;" id="successUpdate">
+	<p>La reserva se ha actualizado con exito</p>
+</div>
 <div class="col-md-6">
 
-	@if($reserva)
+	@if(isset($reserva))
 	<legend>Modificar Reserva :</legend>
 	@else
 	<legend>Nueva Reserva :</legend>
@@ -79,6 +82,11 @@
 						<option value="{{$asignatura->id}}" id="{{$asignatura->id}}"style="display:none;">{{$asignatura->asignatura}}</option>
 					@endforeach
 				</select>				
+			</div>
+		</div>
+		<div class="form-group" id="areaUpdate" style="display:none;">
+			<div class="col-md-offset-4 col-md-5">
+				<button class="btn btn-primary pull-right" type="button" onclick="updateReserva()">Actualizar</button>				
 			</div>
 		</div>	
 	</form>
@@ -264,6 +272,7 @@
   		      				disabled:false,
   		      				checked:false
   		      			});
+  		      			$('span.label').html('Disponible');
   		      			$('span.label').removeClass('label-warning').addClass('label-success');  		      			
   		      			$('span.label').parents('tr').removeClass('warning').addClass('success');
   		      		}
@@ -368,7 +377,6 @@
 					//mostramos la tabla de objetivos
 					$('#sectionObj').slideDown('slow');
 					//bloquemos los botones para evitar nuevas inserciones
-					$('#enviar,#reiniciar').prop('disabled',true);
 					$('input:checkbox').prop('disabled',true);
 				}else{
 					$('article#modal-msj').dialog({
@@ -403,8 +411,11 @@
 	
 	//evento reiniciar
 	$('button#reiniciar').on('click',function(){
-		$('input:checkbox').prop('checked',false);
-		horario=[];
+		
+		if(confirm('Si reinicia sus datos se perderan, desea continuar?')){
+		//eliminar reserva, eliminar horarios y objetivos
+			location.reload();
+		}
 	});
 
 
@@ -471,7 +482,7 @@ function deleteObjetivo(obj){
 		})
 		.done(function(json) {
 			if(json.success){
-				$('tr[id='+obj+']').slideUp('slow');							
+				$('tr[id='+id+']').slideUp('slow');							
 			}
 		})
 		.fail(function() {
@@ -496,7 +507,43 @@ function modalUpdate(obj){
 
 }
 
+//funcion para actualizar reserva
+function updateReserva(){
+	idTaller  = $('select#id_taller').prop('value');
+	idFecha   = $('input#fecha').prop('value');
+	idCarrera = $('select#id_carrera').prop('value');
+	idAsig    = $('select#id_asig').prop('value');
+	idReserva = $('input#id_reserva').prop('value');
 
+	if( idTaller == '' || fecha == '' || idCarrera == '' || idAsig == '' || idReserva == ''){
+		alert('debe de llenar todos los datos correctamente');		
+	}
+	else{
+		$.ajax({
+			url: "{{URL::to('reserva/update')}}",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id: idReserva,
+				id_taller : idTaller,
+				fecha : idFecha,
+				id_carrera : idCarrera,
+				id_asig: idAsig
+			},
+		})
+		.done(function(data) {
+			if(data.success){
+				$('div.successUpdate').show('slow').delay(3000).slideUp('slow');
+			}
+		})
+		.fail(function(data) {
+			console.log(data);
+		});
+		
+	}
+
+
+}
 
 
 
@@ -539,7 +586,7 @@ $('#modalObjetivos').on('hidden.bs.modal', function () {
 	dataReserva = dataReserva[0]; //por comodidad porque siempre se regresa un solo registro
 	$('input#id_reserva').prop('value',dataReserva.id); ///importante¡¡¡¡
 	$('button#disponible').prop('disabled',true);
-
+	$('#areaUpdate').show();
 	$('select#id_taller').prop('value',dataReserva.id_taller);
 	$('input#fecha').prop('value',dataReserva.fecha);
 	$('select#id_carrera').prop('value',dataReserva.id_carrera);

@@ -23,6 +23,10 @@ Route::post('login','Autentificar@entrar');
 //ruta para cerrar session
 Route::get('logout','Autentificar@salir');
 
+Route::get('bitacora','InvitadoController@getBitacora');
+Route::controller('reserva','ReservaController');
+
+
 
 //creamos las rutas para el administrador
 //aplicamos filtros correspondientes
@@ -37,7 +41,6 @@ Route::group(array('before'=>'admon'), function()
 Route::group(array('before'=>'maestro','after'=>'maestro'),function(){
 	Route::controller('profesor','MasterController');
 	Route::controller('objetivo','ObjetivoController');
-	Route::controller('reserva','ReservaController');
 });
 
 //routa para todos los errores

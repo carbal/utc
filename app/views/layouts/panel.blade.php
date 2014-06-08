@@ -62,7 +62,7 @@
         <ul class="nav navbar-nav">
             
             <li class="dropdown">
-                <a href="{{URL::to('invitado/bitacora')}}">Bitacora</a>
+                <a href="{{URL::to('bitacora')}}">Bitacora</a>
             </li>           
         </ul>
     @if(Session::has('username')==false)

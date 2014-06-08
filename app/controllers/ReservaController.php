@@ -10,6 +10,8 @@ class ReservaController extends BaseController{
 	{		
 		return View::make('reserva.index',compact('id'));
 	}
+
+	//método para insertar un nuevo registro
 	public function postInsert()
 	{
 		if(Request::ajax()){
@@ -72,7 +74,7 @@ class ReservaController extends BaseController{
 			return Response::json($reservas);		 
 
 		}else{
-			Redirect::to('error');
+			return Redirect::to('error');
 		}
 	}
 
@@ -96,6 +98,26 @@ class ReservaController extends BaseController{
 		return Response::json(array('success'=>true,'html'=>$view));
 	}
 
+	public function postUpdate()
+	{
+		$reserva = Reserva::find(Input::get('id'));
+		if($reserva){
+			$reserva->id_carrera = Input::get('id_carrera');
+			$reserva->id_asig    = Input::get('id_asig');
+			$reserva->id_taller  = Input::get('id_taller');
+			$reserva->fecha      = Input::get('fecha');
+			$reserva->save();
+			return Response::json(array('success' => true));
+		}
+	}
+
+
+	public function postDeleteall(){
+
+		if(Session::has('lastIdReserva')){
+
+		}
+	}
 	
 }
 
