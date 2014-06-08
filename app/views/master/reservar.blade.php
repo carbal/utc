@@ -22,9 +22,18 @@
 
 @section('contenedor')
 <div class="row">
-	
+<div class="col-md-10 col-md-offset-1 alert alert-info" id="info">
+	<div style="overflow:hidden;">		
+		<span class="glyphicon glyphicon-info-sign" style="float:left; margin-right:.5em;"></span> <p>Si desea modificar los horarios comuniquese con el administrador</p>
+	</div>
+</div>	
 <div class="col-md-6">
-	<legend>Verificar Disponibilidad</legend>
+
+	@if($reserva)
+	<legend>Modificar Reserva :</legend>
+	@else
+	<legend>Nueva Reserva :</legend>
+	@endif
 	<form action="" class="form form-horizontal">
 		<div class="form-group">
 			<label for="" class="control-label col-md-4">Taller :</label>
@@ -39,10 +48,16 @@
 		</div>
 		<div class="form-group">
 			<label for="" class="control-label col-md-4">Fecha :</label>
-			<div class="col-md-5">
-				<input name="fecha" type="text" class="form-control required" id="fecha">				
+
+			<div class="input-group col-md-5">
+					<input name="fecha" type="text" class="form-control required" id="fecha"/>				
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-success" id="disponible">
+						<span class="glyphicon glyphicon-search"></span>						
+					</button>
+				</span>
 			</div>
-				<input type="button" class="btn btn-sm btn-success" id="disponible" value="??">
+		
 		</div>	
 		<div class="form-group">
 			<label for="" class="control-label col-md-4">Carrera :</label>
@@ -81,7 +96,7 @@
 		<tr class="success">
 			<td>{{$horario->horario}}</td>
 			<td><span class="label label-success" id="{{$horario->id}}">Disponible</span></td>
-			<td><input type="checkbox" id="{{$horario->id}}" value="{{$horario->id}}" name="reservar[]" data-toggle="tooltip" data-placement="right" title="Hora desfasada"></td>
+			<td><input type="checkbox" id="{{$horario->id}}" value="{{$horario->id}}" name="reservar[]"></td>
 			<td></td>
 		</tr>
 		@endforeach
@@ -95,7 +110,7 @@
 <section class="row" id="sectionObj" style="display:none; margin-top:2em;">
 	<div class="col-md-8 col-md-offset-2">		
 	<article class="alert alert-danger">
-		<p>Para completar  debe agregar minimo un objetivo, sino su reserva será cancenlada</p>
+		<p>Para completar  debe agregar minimo un objetivo, si no su reserva será cancelada</p>
 	</article>
 	<div class="responsive" id="misobjetivos">
 		<table class="table table-bordered">			
@@ -112,7 +127,7 @@
 		</table>
 	</div>
 	</div>
-</div>
+</section>
 
 <!--SECCION DE MODALES-->
 <!--DIV PARA  MENSAJES MODAL JQUERYUI-->
@@ -123,7 +138,7 @@
     <div class="modal-content">
       <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Agregar Objetivos a la reserva</h3>
+    <h3>Agregar Objetivos :</h3>
   </div>
   <div class="modal-body">
     <form id="objetivos" action="" class="form form-horizontal">
@@ -152,8 +167,7 @@
 
 <!--SECCION DE INPUT HIIDDEN-->
 <input type="hidden" id="idUpdate" value="">
-
-
+<input type="hidden" id="id_reserva" value="">
 
 <!--SECCION JS-->
 
@@ -213,7 +227,7 @@
 			//datos popover
 		
 	      //ajax
-	      $('input#disponible').on('click', function() {
+	      $('button#disponible').on('click', function() {
 	      		//asignamos valor a las globales siguientes
 	      		_taller=$('select#id_taller').prop('value');
 	      		_fecha=$('input#fecha').prop('value');
@@ -405,7 +419,7 @@ $('#editarObj').on('click', function() {
 	})
 	.done(function() {
 		if(data.success){
-			alert('La actulizacion a finalizado con éxito')
+			alert('La actualizacion a finalizado con éxito')
 		}else{
 			alert('Error al actualizar');
 		}
@@ -426,7 +440,7 @@ function insertObjetivo(){
 			url: "{{URL::to('objetivo/insert')}}",
 			type: 'POST',
 			dataType: 'json',
-			data:$('form#objetivos').serialize()
+			data:$('form#objetivos').serialize()+'&id_reserva='+$('#id_reserva').prop('value')
 		})
 		.done(function(json) {
 			
@@ -445,12 +459,15 @@ function insertObjetivo(){
 }
 //funcion para eliminar objetivo
 function deleteObjetivo(obj){
+	var id = $(obj).parents('tr').first().prop('id');
+
+	console.log(id);
 	if(confirm('Desea eliminar este objetivo?')){
 		$.ajax({
 			url: "{{URL::to('objetivo/delete')}}",
 			type: 'POST',
 			dataType:'json',			
-			data:'id='+obj
+			data:'id='+id
 		})
 		.done(function(json) {
 			if(json.success){
@@ -465,17 +482,24 @@ function deleteObjetivo(obj){
 
 //funcion mostrar el modal objetivo
 function modalUpdate(obj){
-var datos = $('tr#'+obj).find('td');
-//asigmanos los datos
-$('input#objetivo').prop('value',datos.eq(0).html());
-$('textarea#descripcion').html(datos.eq(1).html());
-//agregamos el valor al input hidden necesario para hacer update
-$('body #idUpdate').prop('value',obj);
-//mostramos  el modal y boton update
-$('div#modalObjetivos').modal('show');
-$('#modalObjetivos input#updateObj').show();
-$('#modalObjetivos input#insertObj').hide();
+	var data = $(obj).parents('tr').first().find('td');
+	//asigmanos los datos
+	$('input#objetivo').prop('value',data.eq(0).html());
+	$('textarea#descripcion').html(data.eq(1).html());
+	//agregamos el valor al input hidden necesario para hacer update	
+	$('body #idUpdate').prop('value',$(obj).parents('tr').prop('id'));
+	//mostramos  el modal y boton update
+	$('#modal-header h3').html('Actualizar Objetivos:');
+	$('#modalObjetivos input#updateObj').show();
+	$('#modalObjetivos input#insertObj').hide();
+	$('div#modalObjetivos').modal();
+
 }
+
+
+
+
+
 
 //funcion para actualizar objetivo
 function updateObjetivo(){
@@ -488,10 +512,8 @@ function updateObjetivo(){
 	})
 	.done(function(json) {
 		if(json.success){
-			$('#modalObjetivos').modal('hide');
-			$('form#objetivos').each(function() {
-				this.reset();
-			});
+			$('#modalObjetivos').modal('hide');		
+			$('div#misobjetivos').html(json.html);
 		}
 	})
 	.fail(function(json) {
@@ -499,5 +521,52 @@ function updateObjetivo(){
 	});
 	
 }
-</script>
+
+
+$('#modalObjetivos').on('hidden.bs.modal', function () {
+	$('#modal-header h3').html('Agregar Objetivos');
+	$('#modalObjetivos input#insertObj').show();
+	$('#modalObjetivos input#updateObj').hide();		
+	  $('form#objetivos').each(function() {
+		this.reset();
+	  });
+	  $('textarea').empty();
+})
+
+@if(isset($reserva))
+	var dataReserva = {{$reserva->toJson()}};
+	var dataHoras   = {{$horas->toJson()}};
+	dataReserva = dataReserva[0]; //por comodidad porque siempre se regresa un solo registro
+	$('input#id_reserva').prop('value',dataReserva.id); ///importante¡¡¡¡
+	$('button#disponible').prop('disabled',true);
+
+	$('select#id_taller').prop('value',dataReserva.id_taller);
+	$('input#fecha').prop('value',dataReserva.fecha);
+	$('select#id_carrera').prop('value',dataReserva.id_carrera);
+	$('select#id_asig').prop('value',dataReserva.id_asig);
+	$('div#info').delay(5000).slideUp('slow');
+	$('#horarios').show().css('opacity','0.8'); //mostramos el div horarios
+	$('#horarios button').prop('disabled',true);
+	$('input:checkbox').prop('disabled',true).parents('tr').addClass('warning');  //bloqueamos todos los checkbox
+
+	//iteramos los datos de dataHoras
+	for(i in dataHoras)
+		$('input:checkbox[id='+dataHoras[i].id_horario+']').prop('checked',true).parents('tr').removeClass('warning');
+
+	$('article.alert').hide();
+	//cargamos los objetivos de la reserva
+	$.ajax({
+		url: "{{URL::to('objetivo/objetivos')}}/"+dataReserva.id,
+		type: 'GET',
+		dataType: 'json'
+	})
+	.done(function(data) {
+		$('div#misobjetivos').html(data.html);
+		$('#sectionObj').show();
+	})
+	.fail(function(data) {
+		console.log(data)
+	});		
+@endif
+</script> 
 @stop

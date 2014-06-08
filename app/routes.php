@@ -34,14 +34,24 @@ Route::group(array('before'=>'admon'), function()
 
 //creamos rutas para los maestros
 //aplicamos filtros correspondientes
-Route::group(array('before'=>'maestro'),function(){
+Route::group(array('before'=>'maestro','after'=>'maestro'),function(){
 	Route::controller('profesor','MasterController');
 	Route::controller('objetivo','ObjetivoController');
 	Route::controller('reserva','ReservaController');
 });
 
-//
+//routa para todos los errores
+App::missing(function($exception){
 
+	return Response::view('notfound', array(), 404);
+
+});
+
+
+//routa por defecto para los errrores
+Route::get('error',function(){
+	return View::make('error');
+});
 
 
 

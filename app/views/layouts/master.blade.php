@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+<head>	
 	<meta charset="UTF-8">
 	<meta autor="Carlos Roberto Balam Balam">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
 	<title> Sistema de Reservacion Univerdad del Centro</title>
 	<!--SECCION DE JAVASCRIPT-->
 	@section('script')
@@ -25,6 +25,10 @@
 		div#contenedor{
 			min-height: 500px;
 		}
+		textarea{
+			resize: none;
+		}
+		
 	</style>
 	@show
 </head>

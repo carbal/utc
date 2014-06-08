@@ -1,11 +1,4 @@
 <?php 
-
-/*
-| Location:app/controllers/ProfesorController.php
-|
-|
-|
-*/
 class ProfesorController extends BaseController{
 
 	protected $layout="layouts.master";
@@ -18,12 +11,7 @@ class ProfesorController extends BaseController{
 	public function getNew()
 	{
 		$this->layout = View::make('profesor.new');
-	}
-
-	public function postAdd()
-	{
-		return "Hola add";
-	}
+	}	
 
 }
 ?>

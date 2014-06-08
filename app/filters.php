@@ -70,8 +70,9 @@ Route::filter('guest', function()
 |
 */
 Route::filter('admon',function(){
-	if(Session::get('tipo')!='admon')
+	if(!Session::has('tipo') && Session::get('tipo') != 'admon'){
 		return Redirect::to('/');
+	}
 });
 /*
  Profesor Filter
@@ -83,8 +84,9 @@ Route::filter('admon',function(){
 |
 */
 Route::filter('maestro',function(){
-	if(Session::get('tipo')!='profesor')
-		return Redirect::to('/');
+	if(!Session::has('tipo') && Session::get('tipo') != 'profesor'){
+		return Redirect::to('/');		
+	}
 });
 
 /*

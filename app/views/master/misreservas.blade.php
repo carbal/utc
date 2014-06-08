@@ -7,6 +7,7 @@
 @section('style')
 @parent
 <script type="text/javascript">
+
 	function infoReserva(idReserva){
 
 	$('#modalInfo').modal();		
@@ -68,7 +69,7 @@
 						@else
 						<td><span class="label label-success">Aprobado</span></td>
 						@endif
-						<td><span class="glyphicon glyphicon-pencil" title="Editar" style="cursor:pointer"></span></td>
+						<td><a href="{{URL::to('reserva/index')}}/{{$reserva->id}}"><span class="glyphicon glyphicon-pencil" title="Editar" style="cursor:pointe"></span></a></td>
 						<td><span class="glyphicon glyphicon-search" title="Información" style="cursor:pointer" onclick="infoReserva({{$reserva->id}})"></span></td>
 					</tr>
 					@endforeach

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+<head>	
 	<meta charset="UTF-8">
 	<meta autor="Carlos Roberto Balam Balam">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,7 +38,6 @@
 		}
 		div#contenedor{
 			min-height: 500px;
-			margin-bottom: 50px;
 		}
 	</style>
 	@show

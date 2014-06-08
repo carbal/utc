@@ -5,9 +5,16 @@ class ObjetivoController extends BaseController{
 	//método para insertar en el modelo 
 	public function postInsert()
 	{
+
+		if(Input::get('id_reserva') != '')
+			$id = Input::get('id_reserva');
+		else
+			$id = Session::get('lastIdReserva');
+
+
 		if (Request::ajax()){
 			$insert=array(
-				'id_reserva'=>Session::get('lastIdReserva'),
+				'id_reserva'=>$id,
 				'objetivo'=>Input::get('objetivo'),
 				'descripcion'=>Input::get('descripcion'),
 				'fecha'=>date('Y-m-d'),
@@ -15,7 +22,7 @@ class ObjetivoController extends BaseController{
 			);
 			Objetivo::insert($insert);
 
-			$objetivos=Objetivo::where('id_reserva',Session::get('lastIdReserva'))->get();
+			$objetivos=Objetivo::where('id_reserva',$id)->get();
 			$vista= View::make('master.objetivos',compact('objetivos'))->render();
 
 			return Response::json(array(
@@ -54,12 +61,21 @@ class ObjetivoController extends BaseController{
 			$objetivo->fecha      = date('Y-m-d');
 			$objetivo->hora       = date('H:m:s');
 			$objetivo->save();
-
-			return Response::json(array('success'=>true));
+			$objetivos = Objetivo::where('id_reserva',$objetivo->id_reserva)->get();
+			$view 	   = View::make('master.objetivos',compact('objetivos'))->render();
+			return Response::json(array('success'=>true,'html'=>$view));
 		}else{
 			App::error('404');			
 		}
 
+	}
+
+	//método para retornar los objetivos de una reserva
+	public function getObjetivos($id)
+	{		
+		$objetivos = Objetivo::where('id_reserva',$id)->get();
+		$view 	   = View::make('master.objetivos',compact('objetivos'))->render();
+		return Response::json(array('success'=>true,'html'=>$view));
 	}
 
 }

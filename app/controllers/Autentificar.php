@@ -34,8 +34,13 @@ class Autentificar extends BaseController{
 	public function salir()
 	{
 		Session::flush();
+		Session::reflash();
 		Cache::flush();
-		return Redirect::action('InvitadoController@getIndex');
+		Cookie::forget('laravel_session');
+		unset($_COOKIE);
+		unset($_SESSION);
+
+		return Redirect::to('/');
 	}
 }
 ?>

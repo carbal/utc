@@ -14,8 +14,9 @@ class MasterController extends BaseController{
 		return $this->layout = View::make('master.index');
 	}
 
-	public function getReservar()
+	public function getReservar($id=NULL)
 	{
+
 		//importante si existe la session debe ser detruida
 		if(Session::has('lastIdReserva')){
 			Session::put('lastIdReserva',NULL);
@@ -50,12 +51,21 @@ class MasterController extends BaseController{
 		$asignaturas = Asignatura::whereIn('id',$asignaturas)->get();
 
 
-		//enviamos los datos a la vista 
-		return $this->layout = View::make('master.reservar',compact('talleres','horarios','carreras','asignaturas','asig'));
+		//dependiendo del parametro del método enviamos datos a la vista
+		if($id == NULL)
+			$data = compact('talleres','horarios','carreras','asignaturas','asig');
+		else{ 
+			$reserva = Reserva::where('id',$id)->get();
+			$horas   = Detalle::where('id_reserva',$id)->get(); // horas que se hicieron en la
+			$data    = compact('talleres','horarios','carreras','asignaturas','asig','reserva','horas');
+		}		
+		
+		return $this->layout = View::make('master.reservar',$data);
 	}
 
 
-	public function getMisreservas(){
+	public function getMisreservas()
+	{
 		$reservas=Viewreserva::where('id_profesor',Session::get('clave'))->get();
 		return $this->layout = View::make('master.misreservas',compact('reservas'));
 	}	

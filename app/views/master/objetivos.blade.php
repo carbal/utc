@@ -1,5 +1,4 @@
-<table class="table table-bordered">
-						
+<table class="table table-bordered">						
 <tr>
 	<th>Objetivo</th>
 	<th>Descripción</th>
@@ -9,8 +8,8 @@
 <tr id="{{$objetivo->id}}">
 	<td style="max-width:150px; overflow:hidden;">{{$objetivo->objetivo}}</td>
 	<td style="max-width:220px; overflow:hidden;">{{$objetivo->descripcion}}</td>
-	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" onclick="modalUpdate({{$objetivo->id}})"></span></td>
-	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-remove" onclick="deleteObjetivo({{$objetivo->id}})"></span></td>	
+	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" onclick="modalUpdate(this)"></span></td>
+	<td class="text-center" style="cursor:pointer;"><span class="glyphicon glyphicon-remove" onclick="deleteObjetivo(this)"></span></td>	
 </tr>						
 @endforeach
 <tr>

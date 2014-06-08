@@ -5,6 +5,11 @@ class ReservaController extends BaseController{
 
 
 	//funcion para insertar una nueva reserva
+
+	public function getIndex($id)
+	{		
+		return View::make('reserva.index',compact('id'));
+	}
 	public function postInsert()
 	{
 		if(Request::ajax()){
