@@ -9,16 +9,17 @@ class Autentificar extends BaseController{
 		$pass=Input::get('pass');
 		//realizamos la connsulTa con los datos del usuario
 
-		$user=DB::table('profesores')
-		->where('nick',$user)
+		$user=Profesor::where('nick',$user)
 		->where('password',$pass)
 		->first();
 				
 		if(count($user)>0){
+			$periodo = Periodo::all()->last(); //obtenemos el periodo activo
+
 			Session::put('usuario',$user->nombre." ".$user->apellido );
 			Session::put('clave',$user->id);
 			Session::put('tipo',$user->tipo);
-
+			Session::put('periodo',$periodo->periodo);
 			if($user->tipo ==='admon')
 				return Redirect::to('admon');			
 			else

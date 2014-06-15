@@ -50,7 +50,7 @@
 						<tr class="success">
 							<th>#</th>
 							<th>Objetivo</th>
-							<th>Descripcion</th>		
+							<th>Descripción</th>		
 						</tr>
 						@foreach($objetivos as $objetivo)
 						<tr>

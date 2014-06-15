@@ -3,6 +3,7 @@
 @section('script')
 @parent
 {{HTML::script('js/jquery-ui.js')}}
+{{HTML::script('js/objetivo.js')}}
 @stop
 
 @section('style')
@@ -186,7 +187,8 @@
 	var _taller,_fecha,_carrera,_asig,_horario;
 	//horas que reservará el profesor
 	var horas=0;
-
+	var xd ="{{URL::to('objetivo')}}";
+	
 	$(function(){		
 		$.datepicker.regional['es'] = {
 	            closeText: 'Cerrar',
@@ -472,14 +474,13 @@ function insertObjetivo(){
 function deleteObjetivo(obj){
 	var id = $(obj).parents('tr').first().prop('id');
 
-	console.log(id);
 	if(confirm('Desea eliminar este objetivo?')){
 		$.ajax({
 			url: "{{URL::to('objetivo/delete')}}",
 			type: 'POST',
-			dataType:'json',			
+			dataType:'json',			 
 			data:'id='+id
-		})
+		})  
 		.done(function(json) {
 			if(json.success){
 				$('tr[id='+id+']').slideUp('slow');							
@@ -544,10 +545,6 @@ function updateReserva(){
 
 
 }
-
-
-
-
 //funcion para actualizar objetivo
 function updateObjetivo(){
 

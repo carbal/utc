@@ -14,6 +14,14 @@
 	@section('style')
 	{{HTML::style('css/bootstrap.css')}}
 	<style type="text/css">
+		@import url(http://fonts.googleapis.com/css?family=Lato);
+		body{
+			font-family: 'Lato', sans-serif !important;
+			font-size: 12px !important;
+		}
+		h1,h2,h3,h4{
+			font-family: 'Lato', sans-serif !important;
+		}
 		div.row{
 			padding: 0px;
 			margin: 0px;
@@ -27,6 +35,9 @@
 		}
 		textarea{
 			resize: none;
+		}
+		.glyphicon{
+			cursor: pointer;
 		}
 		
 	</style>
@@ -56,8 +67,8 @@
 	          <ul class="dropdown-menu">	            
 	            <li><a href="#">Historial</a></li>
 	            <li class="divider"></li>
-	            <li><a href="#">Mis Grupos</a></li>	 
-	            <li><a href="{{URL::to('profesor/misreservas')}}">Mis reservas</a></li>           
+	            <li><a href="{{URL::to('profesor/carreras')}}">Carreras</a></li>	 
+	            <li><a href="{{URL::to('profesor/reservas')}}">Reservas</a></li>           
 	          </ul>
        		</li>
        		<li class="dropdown">
@@ -68,12 +79,15 @@
        		</li>
         </ul>
        	<ul class="nav navbar-nav navbar-right">
-       		<span class="label label-primary">{{Session::get('usuario')}}</span>
-	        <a href="{{URL::to('logout')}}" class="btn btn-danger navbar-btn">Salir</a>
-	        &nbsp
-	        &nbsp
-	        &nbsp
-	        &nbsp
+       		<div class="btn-group" style="position:relative; top:.5em;" title="{{Session::get('usuario')}}">
+       			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+       				<span class="glyphicon glyphicon-user"></span>
+       				<span class="caret"></span>
+       			</button>
+       			 <ul class="dropdown-menu" role="menu">
+				    <li><a href="{{URL::to('logout')}}">Salir</a></li>
+				 </ul>
+       		</div>
       	</ul>        
     </div>  
 </nav>

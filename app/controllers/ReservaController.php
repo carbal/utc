@@ -1,10 +1,6 @@
 <?php 
 class ReservaController extends BaseController{
-
-
-
-
-	//funcion para insertar una nueva reserva
+//funcion para insertar una nueva reserva
 
 	public function getIndex($id)
 	{		
@@ -82,42 +78,69 @@ class ReservaController extends BaseController{
 	//funcion para obtener informacion sobre la reserva
 	public function postInforeserva()
 	{
-		$id=Input::get('id');
-		$contador=0;
-		//varible
-		$horas= array();
-		$view     = Viewreserva::where('id',$id)->first();
-		$detalles = Detalle::where('id_reserva',$id)->get();
-		foreach($detalles as $detalle){
-			array_push($horas,$detalle->id_horario);
-		}
-		$horarios= Horario::whereIn('id',$horas)->get();
-		$objetivos= Objetivo::where('id_reserva',$id)->get();	 
+		if(Response::ajax()){
+			$id=Input::get('id');
+			$contador=0;
+			//varible
+			$horas= array();
+			$view     = Viewreserva::where('id',$id)->first();
+			$detalles = Detalle::where('id_reserva',$id)->get();
 
-		$view = View::make('reserva.inforeserva',compact('view','horarios','objetivos','contador'))->render();
-		return Response::json(array('success'=>true,'html'=>$view));
+			foreach($detalles as $detalle){
+				array_push($horas,$detalle->id_horario);
+			}
+
+			$horarios  = Horario::whereIn('id',$horas)->get();
+			$objetivos = Objetivo::where('id_reserva',$id)->get();	 
+
+			$view = View::make('reserva.inforeserva',compact('view','horarios','objetivos','contador'))->render();
+
+			return Response::json(array('success'=>true,'html'=>$view));
+		}else{
+			return Redirect::to('error');
+		}
 	}
 
+	//método para actualizar reserva
 	public function postUpdate()
 	{
-		$reserva = Reserva::find(Input::get('id'));
-		if($reserva){
-			$reserva->id_carrera = Input::get('id_carrera');
-			$reserva->id_asig    = Input::get('id_asig');
-			$reserva->id_taller  = Input::get('id_taller');
-			$reserva->fecha      = Input::get('fecha');
-			$reserva->save();
-			return Response::json(array('success' => true));
+		if(Response::ajax()){
+			$reserva = Reserva::find(Input::get('id'));
+			if($reserva){
+				$reserva->id_carrera = Input::get('id_carrera');
+				$reserva->id_asig    = Input::get('id_asig');
+				$reserva->id_taller  = Input::get('id_taller');
+				$reserva->fecha      = Input::get('fecha');
+				$reserva->save();
+
+				return Response::json(array('success' => true));
+			}
+		}else{
+			Redirect::to('error');
 		}
 	}
 
+	//método para cancelar reserva
+	public function postCancelar()
+	{
+		if(Responso::ajax()){
+			$id = Input::get('id');
 
-	public function postDeleteall(){
+			$reserva = Reserva::find($id);
+			if($reserva){
+				$reserva->estado = 2;
+				Response::json(array('success'=>true));
+			}else{
+				Response::json(array('success'=>false));
+			}
 
-		if(Session::has('lastIdReserva')){
 
+		}else{
+			return Redirect::to('error');
 		}
+
 	}
+
 	
 }
 

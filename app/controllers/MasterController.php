@@ -1,6 +1,4 @@
-
 <?php 
-
 /**
 *	location: App/Controllers/MasterController.php
 *
@@ -11,7 +9,7 @@ class MasterController extends BaseController{
 
 	public function getIndex()
 	{
-		return $this->layout = View::make('master.index');
+		return View::make('master.index');
 	}
 
 	public function getReservar($id=NULL)
@@ -23,13 +21,13 @@ class MasterController extends BaseController{
 		}
 
 
-		$talleres= Taller::all();
+		$talleres = Taller::all();
 		$horarios = horario::all();
 		//obtenemos las carreras y asignaturas del maestro para el periodo actual
-		$carreras=array();
-		$asignaturas=array();
+		$carreras    = array();
+		$asignaturas = array();
 		//array que usaremos como pivote
-		$asig=array();
+		$asig = array();
 
 
 		$cargas = Carga::where('id_profesor',Session::get('clave'))->get();
@@ -44,10 +42,10 @@ class MasterController extends BaseController{
 			}
 		}
 		//eliminamos id´s repetidos
-		$carreras=array_unique($carreras);
-		$asignaturas=array_unique($asignaturas);
+		$carreras    = array_unique($carreras);
+		$asignaturas = array_unique($asignaturas);
 		//obtenemos las carreras que pertenecen al profesor
-		$carreras= Carrera::whereIn('id',$carreras)->get();	
+		$carreras    = Carrera::whereIn('id',$carreras)->get();	
 		$asignaturas = Asignatura::whereIn('id',$asignaturas)->get();
 
 
@@ -60,14 +58,19 @@ class MasterController extends BaseController{
 			$data    = compact('talleres','horarios','carreras','asignaturas','asig','reserva','horas');
 		}		
 		
-		return $this->layout = View::make('master.reservar',$data);
+		return View::make('master.reservar',$data);
 	}
 
 
-	public function getMisreservas()
+	public function getReservas()
 	{
-		$reservas=Viewreserva::where('id_profesor',Session::get('clave'))->get();
-		return $this->layout = View::make('master.misreservas',compact('reservas'));
+		$reservas=Viewreserva::where('id_profesor',Session::get('clave'))->paginate(10);
+		return View::make('master.reservas',compact('reservas'));
+	}
+
+	public function getCarreras()
+	{	
+		return View::make('master.carreras');
 	}	
 
 }

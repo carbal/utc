@@ -62,7 +62,7 @@ class ObjetivoController extends BaseController{
 			$objetivo->hora       = date('H:m:s');
 			$objetivo->save();
 			$objetivos = Objetivo::where('id_reserva',$objetivo->id_reserva)->get();
-			$view 	   = View::make('master.objetivos',compact('objetivos'))->render();
+			$view 	   = View::make('objetivos.objetivos',compact('objetivos'))->render();
 			return Response::json(array('success'=>true,'html'=>$view));
 		}else{
 			App::error('404');			
@@ -74,7 +74,7 @@ class ObjetivoController extends BaseController{
 	public function getObjetivos($id)
 	{		
 		$objetivos = Objetivo::where('id_reserva',$id)->get();
-		$view 	   = View::make('master.objetivos',compact('objetivos'))->render();
+		$view 	   = View::make('objetivos.objetivos',compact('objetivos'))->render();
 		return Response::json(array('success'=>true,'html'=>$view));
 	}
 
