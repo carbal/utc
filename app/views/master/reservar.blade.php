@@ -3,7 +3,6 @@
 @section('script')
 @parent
 {{HTML::script('js/jquery-ui.js')}}
-{{HTML::script('js/objetivo.js')}}
 @stop
 
 @section('style')

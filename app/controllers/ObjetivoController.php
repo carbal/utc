@@ -14,20 +14,20 @@ class ObjetivoController extends BaseController{
 
 		if (Request::ajax()){
 			$insert=array(
-				'id_reserva'=>$id,
-				'objetivo'=>Input::get('objetivo'),
-				'descripcion'=>Input::get('descripcion'),
-				'fecha'=>date('Y-m-d'),
-				'hora'=>date('H:m:s')
+				'id_reserva'  => $id,
+				'objetivo'    => Input::get('objetivo'),
+				'descripcion' => Input::get('descripcion'),
+				'fecha'       => date('Y-m-d'),
+				'hora'        => date('H:m:s')
 			);
 			Objetivo::insert($insert);
 
-			$objetivos=Objetivo::where('id_reserva',$id)->get();
-			$vista= View::make('master.objetivos',compact('objetivos'))->render();
+			$objetivos = Objetivo::where('id_reserva',$id)->get();
+			$vista     = View::make('master.objetivos',compact('objetivos'))->render();
 
 			return Response::json(array(
-				'success'=>true,
-				'html'=>$vista
+				'success' => true,
+				'html'    => $vista
 			));
 			
 		}else{
@@ -41,8 +41,8 @@ class ObjetivoController extends BaseController{
 
 		if(Request::ajax()){
 
-			$id=Input::get('id');
-			$obj=Objetivo::find($id);
+			$id  = Input::get('id');
+			$obj = Objetivo::find($id);
 			$obj->delete();
 			return  Response::json(array('success'=>true));
 		}else{
@@ -56,11 +56,12 @@ class ObjetivoController extends BaseController{
 		$objetivo=Objetivo::find(Input::get('id'));
 
 		if($objetivo){
-			$objetivo->objetivo   = Input::get('objetivo');
-			$objetivo->descripcion= Input::get('descripcion');
-			$objetivo->fecha      = date('Y-m-d');
-			$objetivo->hora       = date('H:m:s');
+			$objetivo->objetivo    = Input::get('objetivo');
+			$objetivo->descripcion = Input::get('descripcion');
+			$objetivo->fecha       = date('Y-m-d');
+			$objetivo->hora        = date('H:m:s');
 			$objetivo->save();
+
 			$objetivos = Objetivo::where('id_reserva',$objetivo->id_reserva)->get();
 			$view 	   = View::make('objetivos.objetivos',compact('objetivos'))->render();
 			return Response::json(array('success'=>true,'html'=>$view));
@@ -75,7 +76,7 @@ class ObjetivoController extends BaseController{
 	{		
 		$objetivos = Objetivo::where('id_reserva',$id)->get();
 		$view 	   = View::make('objetivos.objetivos',compact('objetivos'))->render();
-		return Response::json(array('success'=>true,'html'=>$view));
+		return Response::json(array('success' => true,'html' => $view));
 	}
 
 }

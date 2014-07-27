@@ -4,11 +4,12 @@
 	<meta charset="UTF-8">
 	<meta autor="Carlos Roberto Balam Balam">
 	<meta name="viewport" content="width=device-width, initial-scale=1">	
-	<title> Sistema de Reservacion Univerdad del Centro</title>
+	<title>Sistema de Reservación Univerdad del Centro</title>
 	<!--SECCION DE JAVASCRIPT-->
 	@section('script')
 	{{HTML::script('js/jquery-2.0.2.js')}}
 	{{HTML::script('js/bootstrap.js')}}
+	</script>
 	@show
 	<!--SECCION DE CSS-->
 	@section('style')
@@ -39,7 +40,6 @@
 		.glyphicon{
 			cursor: pointer;
 		}
-		
 	</style>
 	@show
 </head>

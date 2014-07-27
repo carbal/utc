@@ -11,39 +11,38 @@ class ReservaController extends BaseController{
 	public function postInsert()
 	{
 		if(Request::ajax()){
-			$dataAjax=Input::all();
+			$dataAjax = Input::all();
 			//obtenemos el periodo actual
-			$periodo=Periodo::all()->last();
+			$periodo  = Periodo::all()->last();
 			//obtenemos los datos faltantes para insertar en la DB
-			$data=array(
-			'id_profesor'=>Session::get('clave'),
-			'id_periodo'=>$periodo->id,
-			'estado'=>0,
-			'hora'=>date('H:i:s')
+			$data = array(
+			'id_profesor' => Session::get('clave'),
+			'id_periodo'  => $periodo->id,
+			'estado'      => 0,
+			'hora'        => date('H:i:s')
 			);
 			//eliminamos el valor json enviado
 			unset($dataAjax['jsonhoras']);
-			$insert=array_merge($data,$dataAjax);
-			//IMPORTANTE:insertamos en la DB y optenemos el ultimo ID
-			$idInsert=Reserva::insertGetId($insert);
-			if($idInsert){
-			//IMPORTANTE ALMACENAMOS EN LA UNA VARIABLE DE SESION EL ID
-				Session::put('lastIdReserva',$idInsert);
 
+			$insert = array_merge($data,$dataAjax);
+			//IMPORTANTE:insertamos en la DB y optenemos el ultimo ID
+			$idInsert = Reserva::insertGetId($insert);
+			if($idInsert){
+				//IMPORTANTE ALMACENAMOS EN LA UNA VARIABLE DE SESION EL ID
+				Session::put('lastIdReserva',$idInsert);
 				//capturamso la variable en json
-				$horarios=json_decode(Input::get('jsonhoras'));
+				$horarios = json_decode(Input::get('jsonhoras'));
 				foreach ($horarios as $hora=>$valor) {
 					//guardamos en la DB
-
 					Detalle::insert(array(
 						'id_reserva'=>Session::get('lastIdReserva'),
 						'id_horario'=>$valor
 					));
 				}
 
-				return Response::json(array('success'=>true));			
+				return Response::json(array('success' => true));			
 			}else{
-				return Response::json(array('success'=>false));
+				return Response::json(array('success' => false));
 			}
 		}else{
 			Redirect::to('error');
@@ -56,8 +55,8 @@ class ReservaController extends BaseController{
 		if(Request::ajax()){
 		
 		//capturamos las variables enviadas por ajax
-			 $taller= Input::get('taller');
-			 $fecha= Input::get('fecha');
+			 $taller = Input::get('taller');
+			 $fecha  = Input::get('fecha');
 
 			//OBTENEMOS LOS REGISTROS PARA ESE DÍA y TALLER ESPECIFICO
 			$reservas = DB::table('reservas')
@@ -76,13 +75,13 @@ class ReservaController extends BaseController{
 
 
 	//funcion para obtener informacion sobre la reserva
-	public function postInforeserva()
+	public function postInfo()
 	{
-		if(Response::ajax()){
-			$id=Input::get('id');
-			$contador=0;
+		if(Request::ajax()){
+			$id       = Input::get('id');
+			$contador = 0;
 			//varible
-			$horas= array();
+			$horas    = array();
 			$view     = Viewreserva::where('id',$id)->first();
 			$detalles = Detalle::where('id_reserva',$id)->get();
 
@@ -91,11 +90,10 @@ class ReservaController extends BaseController{
 			}
 
 			$horarios  = Horario::whereIn('id',$horas)->get();
-			$objetivos = Objetivo::where('id_reserva',$id)->get();	 
+			$objetivos = Objetivo::where('id_reserva',$id)->get();	
+			$view      = View::make('reserva.info',compact('view','horarios','objetivos','contador'))->render();
 
-			$view = View::make('reserva.inforeserva',compact('view','horarios','objetivos','contador'))->render();
-
-			return Response::json(array('success'=>true,'html'=>$view));
+			return Response::json(array('success' => true,'html' => $view));
 		}else{
 			return Redirect::to('error');
 		}
@@ -120,20 +118,34 @@ class ReservaController extends BaseController{
 		}
 	}
 
+	public function postBusqueda()
+	{
+		$fecha  = Input::get('fecha');
+		$fecha2 = Input::get('fecha2');
+		//die(var_dump($_POST));
+		if($fecha2 == NULL || $fecha == ''){
+			$reservas =  Viewreserva::where('fecha','=',$fecha)->get();
+		}else{
+			$reservas =  Viewreserva::whereBetween('fecha',array($fecha,$fecha2))->get();
+		}
+		$view = View::make('reserva.busqueda',compact('reservas'))->render();
+		
+		return Response::json(array('success' => true, 'html' => $view));
+
+	}
 	//método para cancelar reserva
 	public function postCancelar()
 	{
-		if(Responso::ajax()){
-			$id = Input::get('id');
-
+		if(Request::ajax()){
+			$id      = Input::get('id');
 			$reserva = Reserva::find($id);
 			if($reserva){
 				$reserva->estado = 2;
-				Response::json(array('success'=>true));
+				$reserva->save();
+				return Response::json(array('success' => true));
 			}else{
-				Response::json(array('success'=>false));
+				return Response::json(array('success' => false));
 			}
-
 
 		}else{
 			return Redirect::to('error');

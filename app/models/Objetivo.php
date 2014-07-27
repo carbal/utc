@@ -1,6 +1,6 @@
 <?php 
 class Objetivo extends Eloquent{
-	protected $table='objetivos';
-	public $timestamps=false;
+	protected $table   = 'objetivos';
+	public $timestamps = FALSE;
 }
 ?>

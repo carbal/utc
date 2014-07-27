@@ -1,7 +1,7 @@
 <?php 
 class Detalle extends Eloquent{
 	
-	protected $table='detalle_reserva';	
+	protected $table   = 'detalle_reserva';	
 	public $timestamps = FALSE;	
 }
 ?>

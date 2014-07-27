@@ -6,7 +6,7 @@
 */
 class Carrera extends Eloquent{
 
-	protected $table = "carreras";
+	protected $table   = "carreras";
 	public $timestamps = FALSE;
 }
 ?>

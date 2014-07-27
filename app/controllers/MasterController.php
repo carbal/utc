@@ -7,6 +7,7 @@ class MasterController extends BaseController{
 
 	protected $layout = "layouts.master";
 
+	//mostrar vsita principal de controllador
 	public function getIndex()
 	{
 		return View::make('master.index');
@@ -36,8 +37,8 @@ class MasterController extends BaseController{
 
 			foreach ($cargas as $carga) {
 
-				$carreras[]=$carga->id_carrera;
-				$asignaturas[]=$carga->id_asig;								
+				$carreras[]    = $carga->id_carrera;
+				$asignaturas[] = $carga->id_asig;								
 				$asig[$carga->id_carrera][$carga->id_asig]="";
 			}
 		}
@@ -61,17 +62,18 @@ class MasterController extends BaseController{
 		return View::make('master.reservar',$data);
 	}
 
-
 	public function getReservas()
 	{
-		$reservas=Viewreserva::where('id_profesor',Session::get('clave'))->paginate(10);
+		$reservas = Viewreserva::where('id_profesor',Session::get('clave'))->paginate(10);
 		return View::make('master.reservas',compact('reservas'));
 	}
 
+
+	//método para mostrar las carreras
 	public function getCarreras()
 	{	
 		return View::make('master.carreras');
 	}	
-
+	
 }
 ?>

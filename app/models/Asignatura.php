@@ -1,7 +1,7 @@
 <?php
 class Asignatura extends Eloquent{
 
-	protected $table = "asignaturas";
+	protected $table   = "asignaturas";
 	public $timestamps = FALSE;
 }
 ?>
