@@ -19,7 +19,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 |
 */
 
-require __DIR__.'/../bootstrap/autoload.php';
+require __DIR__.'/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ require __DIR__.'/../bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/start.php';
+$app = require_once __DIR__.'/bootstrap/start.php';
 
 /*
 |--------------------------------------------------------------------------

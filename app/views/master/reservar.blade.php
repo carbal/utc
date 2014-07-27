@@ -22,11 +22,13 @@
 
 @section('contenedor')
 <div class="row">
+@if($carreras != NULL)
 <div class="col-md-10 col-md-offset-1 alert alert-info" id="info" style="display:none;">
 	<div style="overflow:hidden;">		
 		<span class="glyphicon glyphicon-info-sign" style="float:left; margin-right:.5em;"></span> <p>Si desea modificar los horarios comuniquese con el administrador</p>
 	</div>
 </div>
+
 <div class="alert alert-success col-md-offset-1 col-md-10" style="display:none;" id="successUpdate">
 	<p>La reserva se ha actualizado con exito</p>
 </div>
@@ -114,6 +116,11 @@
 		<button class="btn btn-sm btn-success" id="enviar">Reservar</button>		
 	</div>
 </div>
+@else
+	<div class="alert alert-danger col-md-8 col-md-offset-2">
+		<h5>Usted no tiene asignado ninguna carrera, por favor notifique al administrador.</h5>
+	</div>
+@endif
 </div>
 <section class="row" id="sectionObj" style="display:none; margin-top:2em;">
 	<div class="col-md-8 col-md-offset-2">		

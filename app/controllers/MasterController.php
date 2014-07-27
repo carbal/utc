@@ -46,8 +46,13 @@ class MasterController extends BaseController{
 		$carreras    = array_unique($carreras);
 		$asignaturas = array_unique($asignaturas);
 		//obtenemos las carreras que pertenecen al profesor
-		$carreras    = Carrera::whereIn('id',$carreras)->get();	
-		$asignaturas = Asignatura::whereIn('id',$asignaturas)->get();
+		if(!empty($carreras)){
+			$carreras    = Carrera::whereIn('id',$carreras)->get();	
+			$asignaturas = Asignatura::whereIn('id',$asignaturas)->get();
+		}else{
+			$carreras    = null;
+			$asignaturas = null;
+		}
 
 
 		//dependiendo del parametro del método enviamos datos a la vista
