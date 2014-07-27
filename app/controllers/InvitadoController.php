@@ -5,7 +5,7 @@ class InvitadoController extends BaseController{
 
 	public function getIndex()
 	{		
-		return $this->layout = View::make('invitado.principal');
+		return $this->layout = View::make('invitado.index');
 	}
 
 	
