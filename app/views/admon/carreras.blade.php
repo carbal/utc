@@ -1,22 +1,25 @@
 @extends('layouts.admon')
 
 @section('script')
-@parent
+	@parent
 @stop
 
 @section('style')
-@parent
+	@parent
 @stop
 
 @section('contenedor')
 	<div class="col-md-8 col-md-offset-2">
-		<div class="table-responsive">
-			<table class="table table-bordered">
+		<div class="panel panel-primary">
+			  <div class="panel-heading">
+					<h3 class="panel-title">LISTA DE CARRERAS.</h3>
+			  </div>
+			<table class="table table-condensed">
 				<tr>
 					<th>CLAVE</th>
 					<th>CARRERA</th>
 					<th>GRUPO</th>
-					<th>ACCIONES</th>
+					<th style="text-align:center;">ACCIONES</th>
 				</tr>
 
 				@foreach($carreras as $carrera)
@@ -24,12 +27,11 @@
 						<td>{{$carrera->id}}</td>
 						<td>{{$carrera->carrera}}</td>
 						<td>{{$carrera->grupo}}</td>
-						<td><a id="{{$carrera->id}}">Editar</a></td>
+						<td style="text-align:center;"><span class="glyphicon glyphicon-pencil" onclick="editar({{$carrera->id}})"></span></td>
 					</tr>
 				@endforeach
 			</table>
-			<div class="text-center">{{$carreras->links()}}</div>
-			<a class="btn btn-lg btn-success pull-right">Nuevo</a>
 		</div>
+		<div class="text-center">{{$carreras->links()}}</div>
 	</div>
 @stop

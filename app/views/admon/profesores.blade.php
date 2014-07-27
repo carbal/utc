@@ -10,16 +10,17 @@
 
 @section('contenedor')
 <div class="col-md-8 col-md-offset-2">
-	<legend>Lista de profesores</legend>
-	<br>	
-	<div class="table-responsive">
-		<table class="table table-bordered">
+	<div class="panel panel-primary">
+		  <div class="panel-heading">
+				<h3 class="panel-title">PROFESORES.</h3>
+		  </div>
+		<table class="table table-condensed">
 			<tr>
 				<th>PROFESOR</th>
 				<th>USER</th>
 				<th>CONTRASEÑA</th>
 				<th>NIVEL</th>
-				<th colspan="2">Acciones</th>
+				<th>Acciones</th>
 			</tr>
 			@foreach($profesores as $profesor)
 			<tr>
@@ -27,15 +28,11 @@
 				<td>{{$profesor->nick}}</td>
 				<td>{{$profesor->password}}</td>
 				<td>{{$profesor->tipo}}</td>
-				<td><a id="{{$profesor->id}}">Baja</a></td>
-				<td><a id="{{$profesor->id}}">Editar</a></td>
+				<td style="text-align:center;"><span class="glyphicon glyphicon-pencil" onclick="editar({{$profesor->id}})"></span></td>
 			</tr>
 			@endforeach
 		</table>
-		<div class="text-center">{{$profesores->links()}}</div>
-		
-		<a href="{{URL::to('profesor/new')}}" class="btn btn-success btn-lg pull-right">Nuevo</a>
-
 	</div>
+		<div class="text-center">{{$profesores->links()}}</div>
 </div>
 @stop

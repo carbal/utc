@@ -14,33 +14,7 @@
 	<!--SECCION DE CSS-->
 	@section('style')
 	{{HTML::style('css/bootstrap.css')}}
-	<style type="text/css">
-		@import url(http://fonts.googleapis.com/css?family=Lato);
-		body{
-			font-family: 'Lato', sans-serif !important;
-			font-size: 12px !important;
-		}
-		h1,h2,h3,h4{
-			font-family: 'Lato', sans-serif !important;
-		}
-		div.row{
-			padding: 0px;
-			margin: 0px;
-		}
-		div#pie{
-			min-height: 10em;
-			background: rgba(0,0,0,1);
-		}
-		div#contenedor{
-			min-height: 500px;
-		}
-		textarea{
-			resize: none;
-		}
-		.glyphicon{
-			cursor: pointer;
-		}
-	</style>
+	{{HTML::style('css/cssDefault.css')}}
 	@show
 </head>
 <body>

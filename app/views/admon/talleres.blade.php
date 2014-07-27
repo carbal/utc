@@ -10,23 +10,25 @@
 
 @section('contenedor')
 	<div class="col-md-6 col-md-offset-3">
-		<legend>Lista de Talleres</legend>
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tr>
-					<th>CLAVE</th>
-					<th>TALLER</th>	
-					<th>ACCIONES</th>				
-				</tr>
+		<div class="panel panel-primary">
+		  <div class="panel-heading">
+				<h3 class="panel-title">LISTA DE TALLERES</h3>
+		  </div>
+		<table class="table table-condensed">
+			<tr>
+				<th>CLAVE</th>
+				<th>TALLER</th>	
+				<th style="text-align:center;">ACCIONES</th>				
+			</tr>
 			@foreach($talleres as $taller)
 				<tr>
-					<td>{{$taller->id_taller}}</td>
+					<td>{{$taller->id}}</td>
 					<td>{{$taller->taller}}</td>					
-					<td><a>Editar</a></td>					
+					<td style="text-align:center;"><span class="glyphicon glyphicon-pencil" onclick="editar({{$taller->id}})"></span></td>					
 				</tr>
 			@endforeach
-			</table>
-			<a href="{{URL::to('talleres/new')}}" class="btn btn-lg btn-success pull-right">Nuevo</a>
+		</table>
 		</div>
+			<a href="{{URL::to('talleres/new')}}" class="btn btn-lg btn-success pull-right">Nuevo</a>
 	</div>
 @stop

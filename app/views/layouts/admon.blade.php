@@ -27,19 +27,7 @@
 	<!--SECCION DE CSS-->
 	@section('style')
 	{{HTML::style('css/bootstrap.css')}}
-	<style type="text/css">
-		div.row{
-			padding: 0px;
-			margin: 0px;
-		}
-		div#pie{
-			min-height: 10em;
-			background: rgba(0,0,0,1);
-		}
-		div#contenedor{
-			min-height: 500px;
-		}
-	</style>
+	{{HTML::style('css/cssDefault.css')}}
 	@show
 </head>
 <body>
@@ -74,8 +62,7 @@
        		<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bandeja<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#"></a></li>
-	            <li><a href="#">Peticiones</a></li>	            
+	            <li><a href="#">Pendientes</a></li>	            
 	          </ul>
        		</li>
         </ul>
