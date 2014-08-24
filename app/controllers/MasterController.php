@@ -23,7 +23,7 @@ class MasterController extends BaseController{
 
 
 		$talleres = Taller::all();
-		$horarios = horario::all();
+		$horarios = Horario::all();
 		//obtenemos las carreras y asignaturas del maestro para el periodo actual
 		$carreras    = array();
 		$asignaturas = array();

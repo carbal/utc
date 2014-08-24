@@ -23,7 +23,7 @@ class ObjetivoController extends BaseController{
 			Objetivo::insert($insert);
 
 			$objetivos = Objetivo::where('id_reserva',$id)->get();
-			$vista     = View::make('master.objetivos',compact('objetivos'))->render();
+			$vista     = View::make('objetivos.objetivos',compact('objetivos'))->render();
 
 			return Response::json(array(
 				'success' => true,

@@ -1,59 +1,56 @@
+//funcion jquery para validar formulario
+(function($){
+  $.fn.validate = function(opts){
+    var integer = '[1-9]{1,}';
+    var integer = new RegExp(integer);
+    var doble = '[0-9]{1,}.[0-9]{1,}';
+    var response =  false;
+    return $(this).on('submit',function(evt){
+      $(this).find('input.required:text').each(function(){
+        if( $(this).prop('value') == ''){
+          $(this).parents('div').first().addClass('has-error');
+         
+          $(this).on('keyup',function() {
+            if($(this).prop('value').length > 4)
+              $(this).parents('div').first().removeClass('has-error').addClass('has-success');
+          });
+        }
+        evt.preventDefault();
+      })
 
+      $(this).find('input:radio').each(function(){
+        if(!$(this).is(':checked')){
+          $(this).parent('label').css('color', 'crimson');
 
-$(function(){
+          $(this).on('click',function(){
+            if($(this).is(':checked')){
+             $(this).parent().css('color', '#468847');
+            }
+          })
+        }
+        evt.preventDefault();
+      });
 
+      $(this).find('textarea.required').each(function(){
 
-	//validacion campo obligatorio
-	var required,integer,date;
-	var police=false;
-	var error=0;
-	var errorClass="has-error";
-	var successClass="has-success";
-	$('form').on('submit', function(event) {
-		required=$(this).find('.required');
-		required.each( function(){
-			if($(this).val()!=""){
-				$(this).parent().addClass(successClass);
-				$(this).siblings().remove();
-			}else{
-				$(this).siblings().remove();
-				$(this).parent().addClass(errorClass);					
-				$(this).after('<span class="error">Campo Requerido</span>');
-				error++;
-			}
-		});
+          if($(this).prop('value') == ''){
+            $(this).parents('div').first().addClass('has-error');
 
-		required.each(function(){
-			if($(this).is('input')){
+            $(this).on('keyup',function() {
+              if($(this).prop('value').length > 4)
+                $(this).parents('div').first().removeClass('has-error').addClass('has-success');
+            });
+          }
+        evt.preventDefault()
 
-				$(this).on('keyup',function(event) {
-					console.log('El campo es input');					
-				});
-				/*
-				$(this).on('keyup', function() {
-					if($(this).val().length>4){
-						$(this).siblings().fadeIn('slow');
-						$(this).addClass(successClass);
-					}				
-				});
-*/
-			}
-			if($(this).is('select')){
-				$(this).on('change', function(event) {
-					console.log("cambio");
-				});
-			}
+      })
 
-		});
+      if($('.has-error').length == 0){
+        opts.ajax(this);
+      }else{
+        return false
+      }
 
-
-
-		if(error>0)
-			return false;
-		else
-			return true;
-	});
-
-
-
-});
+    });
+  };
+})(jQuery);

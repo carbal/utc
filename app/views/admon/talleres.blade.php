@@ -24,7 +24,7 @@
 				<tr>
 					<td>{{$taller->id}}</td>
 					<td>{{$taller->taller}}</td>					
-					<td style="text-align:center;"><span class="glyphicon glyphicon-pencil" onclick="editar({{$taller->id}})"></span></td>					
+					<td style="text-align:center;"><span class="glyphicon glyphicon-pencil" onclick="editar({{$taller->id}})"></span></td>
 				</tr>
 			@endforeach
 		</table>

@@ -10,17 +10,15 @@
 	{{HTML::script('js/jquery-2.0.2.js')}}
 	{{HTML::script('js/bootstrap.js')}}
 
-	
 	@if(Session::has('error'))
-	<script type="text/javascript">
-		$(function(){
-			$('div#error').addClass('has-error');
-			$('input[type=text],input[type=password]').removeAttr('value')
-			$('input[type=text],input[type=password]').val("");
-			$('input[type=text],input[type=password]').attr('placeholder', 'Incorrecto');
-		});
-
-	</script>	
+		<script type="text/javascript">
+			$(function(){
+				$('div#error').addClass('has-error');
+				$('input[type=text],input[type=password]').removeAttr('value')
+				$('input[type=text],input[type=password]').val("");
+				$('input[type=text],input[type=password]').attr('placeholder', 'Incorrecto');
+			});
+		</script>	
 	@endif
 	
 	@show
@@ -60,10 +58,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-            
             <li class="dropdown">
                 <a href="{{URL::to('bitacora')}}">Bitacora</a>
             </li>           
+            <li>
+            	<a href="{{URL::to('formulario')}}">Formulario.</a>
+            </li>
         </ul>
     @if(Session::has('username')==false)
     <form class="navbar-form navbar-right" method="post" action="{{URL::to('login')}}">

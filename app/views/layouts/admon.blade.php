@@ -19,7 +19,6 @@
 			$('input[type=text],input[type=password]').val("");
 			$('input[type=text],input[type=password]').attr('placeholder', 'Incorrecto');
 		});
-
 	</script>	
 	@endif
 	
