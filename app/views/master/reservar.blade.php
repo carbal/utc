@@ -1,13 +1,11 @@
 @extends('layouts.master')
 
 @section('script')
-@parent
-{{HTML::script('js/jquery-ui.js')}}
+	@parent
 @stop
 
 @section('style')
-@parent
-{{HTML::style('css/jquery-ui.css')}}
+	@parent
 <style type="text/css">
 	.error{
 	float: right;
@@ -35,9 +33,9 @@
 <div class="col-md-6">
 
 	@if(isset($reserva))
-	<legend>Modificar Reserva :</legend>
+		<legend>Modificar Reserva :</legend>
 	@else
-	<legend>Nueva Reserva :</legend>
+		<legend>Nueva Reserva :</legend>
 	@endif
 	<form action="" class="form form-horizontal">
 		<div class="form-group">

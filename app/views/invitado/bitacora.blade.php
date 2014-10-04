@@ -1,13 +1,11 @@
 @extends('layouts.panel')
 
 @section('script')
-@parent
-{{HTML::script('js/jquery-ui.js')}}
+	@parent
 @stop
 
 @section('style')
-@parent
-{{HTML::style('css/jquery-ui.css')}}
+	@parent
 @stop
 
 @section('contenedor')

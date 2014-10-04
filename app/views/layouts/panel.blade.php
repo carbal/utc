@@ -9,6 +9,7 @@
 	@section('script')
 	{{HTML::script('js/jquery-2.0.2.js')}}
 	{{HTML::script('js/bootstrap.js')}}
+	{{HTML::script('js/jquery-ui.js')}}
 
 	@if(Session::has('error'))
 		<script type="text/javascript">
@@ -25,6 +26,7 @@
 	<!--SECCION DE CSS-->
 	@section('style')
 	{{HTML::style('css/bootstrap.css')}}
+	{{HTML::style('css/jquery-ui.js')}}
 	<style type="text/css">
 		div.row{
 			padding: 0px;
@@ -64,8 +66,11 @@
             <li>
             	<a href="{{URL::to('formulario')}}">Formulario.</a>
             </li>
+            <li>
+            	<a href="{{URL::to('horario')}}">Horarios</a>
+            </li>
         </ul>
-    @if(Session::has('username')==false)
+    @if(Session::has('username') == false)
     <form class="navbar-form navbar-right" method="post" action="{{URL::to('login')}}">
 	      <div class="form-group" id="error">        
 	        <input name="user" type="text" class="form-control " placeholder="Usuario" >	        

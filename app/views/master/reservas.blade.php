@@ -2,7 +2,6 @@
 
 @section('script')
 	@parent
-	{{HTML::script('js/jquery-ui.js')}}
 <script type="text/javascript">
 
 	var idCancelar = null;
@@ -122,8 +121,6 @@
 
 @section('style')
 	@parent
-	{{HTML::style('css/jquery-ui.css')}}
-	{{HTML::style('css/jquery.ui.datepicker.css')}}
 @stop
 
 @section('contenedor')

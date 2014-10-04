@@ -13,8 +13,8 @@
 
 //ruta para llenado de formulario
 Route::controller('formulario','FormularioController');
-
-
+//horarios
+Route::controller('horario','HorarioController');
 
 //RUTAS PARA LA APLICACIÓN PRINCIPAL
 //evento principales sin enlacar con controlador
@@ -40,6 +40,8 @@ Route::group(array('before' => 'maestro', 'after' => 'maestro'),function(){
 	Route::controller('profesor','MasterController');
 	Route::controller('objetivo','ObjetivoController');
 });
+
+
 //routa para todos los errores
 App::missing(function($exception){
 	return Response::view('notfound', array(), 404);

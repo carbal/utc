@@ -9,12 +9,14 @@
 	@section('script')
 	{{HTML::script('js/jquery-2.0.2.js')}}
 	{{HTML::script('js/bootstrap.js')}}
+	{{HTML::script('js/jquery-ui.js')}}
 	</script>
 	@show
 	<!--SECCION DE CSS-->
 	@section('style')
 	{{HTML::style('css/bootstrap.css')}}
 	{{HTML::style('css/cssDefault.css')}}
+	{{HTML::style('css/jquery-ui.css')}}
 	@show
 </head>
 <body>

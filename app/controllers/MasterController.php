@@ -17,10 +17,8 @@ class MasterController extends BaseController{
 	{
 
 		//importante si existe la session debe ser detruida
-		if(Session::has('lastIdReserva')){
+		if(Session::has('lastIdReserva'))
 			Session::put('lastIdReserva',NULL);
-		}
-
 
 		$talleres = Taller::all();
 		$horarios = Horario::all();
@@ -34,7 +32,6 @@ class MasterController extends BaseController{
 		$cargas = Carga::where('id_profesor',Session::get('clave'))->get();
 
 		if(count($cargas)>0){
-
 			foreach ($cargas as $carga) {
 
 				$carreras[]    = $carga->id_carrera;

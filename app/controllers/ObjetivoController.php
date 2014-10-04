@@ -26,7 +26,7 @@ class ObjetivoController extends BaseController{
 			$vista     = View::make('objetivos.objetivos',compact('objetivos'))->render();
 
 			return Response::json(array(
-				'success' => true,
+				'success' => TRUE,
 				'html'    => $vista
 			));
 			
@@ -44,7 +44,7 @@ class ObjetivoController extends BaseController{
 			$id  = Input::get('id');
 			$obj = Objetivo::find($id);
 			$obj->delete();
-			return  Response::json(array('success'=>true));
+			return  Response::json(array('success' => TRUE));
 		}else{
 			App::error('404');
 		}
@@ -53,7 +53,7 @@ class ObjetivoController extends BaseController{
 	//método para actualizar registro
 	public function postUpdate(){
 		
-		$objetivo=Objetivo::find(Input::get('id'));
+		$objetivo = Objetivo::find(Input::get('id'));
 
 		if($objetivo){
 			$objetivo->objetivo    = Input::get('objetivo');
