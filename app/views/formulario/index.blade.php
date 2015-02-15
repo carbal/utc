@@ -98,7 +98,7 @@
 @section('contenedor')
 	<legend>Encuesta.</legend>
 	<div class="alert alert-success" id="success" style="display:none;">
-		<p>Encuenta llenada con éxito.</p>
+		<p>Encuesta llenada con éxito.</p>
 	</div>
 	<div class="row">
 		<div class="col-md-6">

@@ -4,4 +4,3 @@ class Viewreserva extends Eloquent{
 	public $timestamps = FALSE;
 
 }
-?>

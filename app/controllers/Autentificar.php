@@ -43,8 +43,6 @@ class Autentificar extends BaseController{
 		Session::reflash();
 		Cache::flush();
 		Cookie::forget('laravel_session');
-		unset($_COOKIE);
-		unset($_SESSION);
 		return Redirect::to('/');
 	}
 }

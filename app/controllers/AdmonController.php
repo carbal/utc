@@ -1,8 +1,6 @@
 <?php	
 class AdmonController extends BaseController{
 
-	protected $layout="layouts.admon";
-
 	//método para mostrar las vista principal del controlador
 	public function getIndex()
 	{
@@ -13,7 +11,7 @@ class AdmonController extends BaseController{
 	public function getProfesores()
 	{	
 		//obtenemos a los maestros que no sean administradores
-		$profesores = DB::table('profesores')->where('tipo','!=',1)->paginate(10);
+		$profesores = Profesor::where('tipo','!=',1)->paginate(10);
 		return View::make('admon.profesores',compact('profesores'));
 	}
 
@@ -42,4 +40,3 @@ class AdmonController extends BaseController{
 
 			
 }
-?>

@@ -75,7 +75,6 @@ class MasterController extends BaseController{
 	public function getCarreras()
 	{	
 		return View::make('master.carreras');
-	}	
-	
+	}
+
 }
-?>
